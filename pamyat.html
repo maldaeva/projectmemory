@@ -1,0 +1,415 @@
+<html lang="ru" class="webp"><head>
+
+
+        <title>Память поколений»</title>
+        <meta content="IE=edge" http-equiv="X-UA-Compatible">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2.0 user-scalable=yes">
+
+<link rel="stylesheet" href="zapas ефи.css">
+
+  </head>
+
+    <body id="body" class="">
+        <div class="action-page__wrapp">
+
+<!-- Modal -->
+<div class="modal hide fade" id="participate_form" tabindex="-1" role="dialog" aria-label="exampleModalLabel" data-dynamic="true" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div id="pamyat-pokoleniy__story" class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="img/close-modal__button.svg" alt="Закрытие модального окна" class="modal-close__img">
+                </button>
+                <h5 class="modal-body__head">Отправить историю</h5>
+                <form class="modal-body__form" action="/api/lenta/addMsg" data-check="" method="POST" enctype="multipart/form-data" id="addMsgForm">
+                    <input type="hidden" name="tema" value="pamyat-pokoleniy" class="valid">
+                    <div class="modal-body__inputs-fieldset">
+                        <div class="form-group">
+                            <label class="modal-body__label" for="participant__name">
+                                Ваше имя и фамилия
+                                <span class="check_field--error error_string"></span>
+                            </label>
+                            <input type="text" class="modal-body__input required" id="participant__name" name="s1" autofocus="" autocomplete="name" required="" data-type="fullname">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="modal-body__label" for="participant__city">
+                                Город
+                                <span class="check_field--error error_string"></span>
+                            </label>
+                            <input type="text" class="modal-body__input required" id="participant__city" name="s2" required="" data-type="city">
+                        </div>
+
+                        <div class="one-line__fieldset">
+                            <div class="form-group">
+                                <label class="modal-body__label" for="participant__phone">
+                                    Телефон
+                                    <span class="check_field--error error_string"></span>
+                                </label>
+                                <input type="tel" class="modal-body__input required" id="participant__phone" name="s3" autocomplete="tel" required="" data-type="tel">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="modal-body__label" for="participant__email">
+                                    Email
+                                    <span class="check_field--error error_string"></span>
+                                </label>
+                                <input type="email" class="modal-body__input required" id="participant__email" name="s4" required="" data-type="email">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="modal-body__label" for="participant__name">
+                                Имя и фамилия родственника
+                                <span class="check_field--error error_string"></span>
+                            </label>
+                            <input type="text" class="modal-body__input required" id="participant__name" name="s5" autocomplete="name" required="" data-type="fullname">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="modal-body__label" for="participant__name">
+                                Кем вы приходитесь (внук, племянница и тд)
+                                <span class="check_field--error error_string"></span>
+                            </label>
+                            <input type="text" class="modal-body__input" id="participant__name" name="t1" autocomplete="name">
+                        </div>
+                    </div>
+
+                    <div class="file-group__one-line">
+                        <div class="form-group form-group__file-group">
+                            <span class="modal-body__file-button">Прикрепить фото</span>
+                            <div class="fileform form-control">
+                                <label class="modal-body__label" for="upload">
+                                    <span class="fileform__filename"></span>
+                                    <span class="check_field--error error_file"></span>
+                                </label>
+                                <input type="file" id="upload" required="" name="pic1" accept="image/*" data-extension="jpg,jpeg,png,webp,svg" data-max-size="5" data-min="1" value="Прекрепить фото" class="fileform__input required">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-group__textarea">
+                        <label class="modal-body__label" for="participant__comment">
+                            Напишите историю
+                            <span class="modal-body__label_footnote">до 3500 символов</span>
+                            <span class="check_field--error error_text"></span>
+                        </label>
+                        <textarea class="modal-body__textarea required valid" id="participant__comment" name="t2" rows="5" data-pattern="^[a-zA-Zа-яА-Я0-9\s\.\,\;\:\'\?\!\@\)\)\-\+\=\%]" maxlength="3500" data-message="История не должна быть пустой, и превышать 3500 символов" required="">                        </textarea>
+                    </div>
+
+                    <div class="modal-body__submit-fieldset">
+                        <div class="form-group form-group__submit_container">
+                            <button type="submit" class="modal__submit-button" disabled="disabled">Отправить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal hide fade" id="success_message" tabindex="-1" role="dialog" aria-label="exampleModalLabel" aria-hidden="true" data-dynamic="true">
+    <div id="pamyat-pokoleniy__story-sent" class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img src="img/close-modal__button.svg" alt="Закрытие модального окна" class="modal-close__img">
+                </button>
+                <h5 class="modal-body__head">История отправлена успешно!</h5>
+
+            </div>
+        </div>
+    </div>
+</div><div class="memory__wrapper">
+    <header class="memory__header">
+        <div class="header__up-part">
+            <div class="logo75__case">
+                <picture>
+                    <source srcset="img/action-logo__img.webp" type="image/webp">
+                    <source srcset="img/action-logo__img.png" type="image/png">
+                    <img src="img/action-logo__img.webp" class="logo75__img" alt="Победа 1945 - 2020">
+                </picture>
+
+                <picture>
+                    <source srcset="img/congratulation__img.webp" type="image/webp">
+                    <source srcset="img/congratulation__img.png" type="image/png">
+                    <img src="img/congratulation__img.webp" class="sprazdnikom__img" alt="С праздником победы!">
+                </picture>
+            </div>
+            <nav class="menu__nav">
+                <div class="nav__btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="menu__item">
+                    <li class="menu__list">
+                        <a href="#" class="menu__link menu__anchor_link">Главная</a>
+                    </li>
+                    <li class="menu__list">
+                        <a href="#" data-link="steps" class="menu__link">Как участвовать</a>
+                    </li>
+                    <li class="menu__list">
+                        <a href="#" data-link="participants" class="menu__link">Участники</a>
+                    </li>
+                    <li class="menu__list">
+                        <a href="#" data-link="news" class="menu__link">Новости</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="header__bottom-part">
+            <div class="bottom-part__depiction_case">
+                <div class="depiction__wrapper">
+                    <div class="depiction__keep">
+                        <h6 class="depiction__second-header">С 23 апреля</h6>
+                        <h1 class="depiction__head">Память поколений</h1>
+                        <p class="depiction__item">У каждого из нас есть близкие, которые стали свидетелями тех военных лет,
+                        совершали подвиги и вершили историю! Защищали Родину и боролись за мирную жизнь! Поделитесь историей и фотографией
+                        своих родных и они прозвучат в эфире Радио Romantika!</p>
+                    </div>
+
+                    <button data-toggle="modal" data-target="#participate_form" class="pamyat-pokoleniy__participate-button">Участвовать</button>
+                </div>
+            </div>
+
+            <div class="bottom-part__img_case">
+                <picture>
+                    <source srcset="img/top-side__woman_img.webp" type="image/webp">
+                    <source srcset="img/top-side__woman_img.png" type="image/png">
+                    <img src="img/top-side__woman_img.webp" class="bottom-part__img" alt="Сигнальщица - Лидия Спивак">
+                </picture>
+            </div>
+        </div>
+        <svg width="1063" height="570" viewBox="0 0 1063 570" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="arrow" d="M87.637 122.425C235.241 456.052 434.053 553.146 459 569.084H1063V208.584C567 294.584 364.691 213.855 123.305 84.2567L167.956 36.4751L0 0L43.0963 169.563L87.637 122.425Z" fill="#C94D35"></path>
+            <path class="message" d="M536.426 569L587.062 496.524C581.52 498.336 575.72 499.235 569.888 499.183C532.873 499.183 508 470.783 508 431.142C508 391.207 535.241 356 588.54 356C636.215 356 667.895 385.583 667.895 431.142C667.895 457.175 660.788 477.292 645.098 500.074L597.722 569H536.426ZM559.821 430.55C559.821 446.824 570.181 461.317 589.119 461.317C607.478 461.317 618.137 447.416 618.137 430.55C618.137 413.111 607.478 399.491 589.119 399.491C571.366 399.491 559.821 413.093 559.821 430.55Z"></path>
+            <path class="message" d="M642.735 526.898H652.815L660.795 544.436L668.774 526.898H678.854L684.003 559.284H673.125L670.513 542.406L662.895 559.29H658.688L651.076 542.406L648.464 559.29H637.58L642.735 526.898Z"></path>
+            <path class="message" d="M714.535 526.898H726.143V559.284H714.535V555.734C711.855 559.427 707.647 560.374 704.456 560.374C702.254 560.392 700.074 559.942 698.06 559.054C696.046 558.166 694.244 556.86 692.774 555.224C691.246 553.654 690.051 551.794 689.257 549.754C688.464 547.713 688.089 545.534 688.154 543.347C688.154 537.262 690.548 532.983 693.141 530.374C696.291 527.393 700.479 525.755 704.817 525.808C706.643 525.778 708.455 526.137 710.131 526.862C711.807 527.587 713.308 528.661 714.535 530.012V526.898ZM702.349 537.766C700.907 539.156 700.073 541.059 700.03 543.06C700.037 544.046 700.24 545.021 700.626 545.929C701.012 546.836 701.574 547.658 702.28 548.348C703.702 549.674 705.554 550.446 707.498 550.521C709.468 550.493 711.347 549.684 712.721 548.273C713.426 547.602 713.983 546.792 714.357 545.895C714.732 544.997 714.915 544.032 714.897 543.06C714.908 542.07 714.713 541.089 714.326 540.178C713.939 539.267 713.367 538.446 712.647 537.766C711.271 536.421 709.422 535.668 707.498 535.668C705.573 535.668 703.724 536.421 702.349 537.766Z"></path>
+            <path class="message" d="M741.141 547.986C739.04 547.553 737.088 546.579 735.481 545.159C734.178 543.857 732.944 541.609 732.944 538.202C732.87 535.297 733.906 532.473 735.842 530.305C738.386 527.621 742.226 526.898 746.87 526.898H763.988V559.284H752.393V549.002H751.452L744.345 559.29H732.158L741.141 547.986ZM752.362 534.434H748.883C747.724 534.434 746.271 534.509 745.255 535.449C744.909 535.816 744.64 536.249 744.465 536.722C744.291 537.195 744.214 537.699 744.239 538.202C744.208 538.713 744.289 539.224 744.478 539.7C744.666 540.176 744.957 540.604 745.33 540.955C746.334 541.631 747.531 541.961 748.74 541.895H752.362V534.434Z"></path>
+        </svg>
+    </header>
+
+    <section class="memory__first_section">
+        <h2 class="memory__section-head">Как участвовать</h2>
+        <img src="img/steps__abstract.svg" alt="Точки слева" loading="lazy" class="first__abstraction-img first__abstraction-img_left ls-is-cached lazyloaded">
+        <div class="first__case">
+            <ul class="first__register">
+                <li class="first__paragraph">
+                    <div class="first__number_case">
+                        <p class="first__number_item">1 шаг</p>
+                    </div>
+                    <div class="first__img_case">
+                        <picture>
+                            <source srcset="img/steps__img1.webp" type="image/webp">
+                            <source srcset="img/steps__img1.png" type="image/png">
+                            <img src="img/steps__img1.webp" alt="Шаг 1 - иконка" loading="lazy" class="first__img ls-is-cached lazyloaded">
+                        </picture>
+                    </div>
+                    <p class="first__item">Заполните заявку для участия у нас на странице</p>
+                </li>
+                <li class="first__paragraph">
+                    <div class="first__number_case">
+                        <p class="first__number_item">2 шаг</p>
+                    </div>
+                    <div class="first__img_case">
+                        <picture>
+                            <source srcset="img/steps__img2.webp" type="image/webp">
+                            <source srcset="img/steps__img2.png" type="image/png">
+                            <img src="img/steps__img2.webp" alt="Шаг 2 - иконка" loading="lazy" class="first__img ls-is-cached lazyloaded">
+                        </picture>
+                    </div>
+                    <p class="first__item">Напишите о своем родственнике, принимавшем участие в Великой Отечественной войне</p>
+                </li>
+                <li class="first__paragraph">
+                    <div class="first__number_case">
+                        <p class="first__number_item">3 шаг</p>
+                    </div>
+                    <div class="first__img_case">
+                        <picture>
+                            <source srcset="img/steps__img3.webp" type="image/webp">
+                            <source srcset="img/steps__img3.png" type="image/png">
+                            <img src="img/steps__img3.webp" alt="Шаг 3 - иконка" loading="lazy" class="first__img ls-is-cached lazyloaded">
+                        </picture>
+                    </div>
+                    <p class="first__item">Загрузите фотографию. Готово!</p>
+                </li>
+            </ul>
+            <div class="memory__share-button_case">
+                <button data-toggle="modal" data-target="#participate_form" class="pamyat-pokoleniy__participate-button">Отправить заявку</button>
+            </div>
+        </div>
+        <img src="img/participants__abstract3.svg" alt="Точки справа" loading="lazy" class="first__abstraction-img first__abstraction-img_right ls-is-cached lazyloaded">
+    </section>
+
+
+            <section class="memory__member_section">
+            <h2 class="memory__section-head">Участники</h2>
+            <img src="img/participants__abstract2.svg" alt="Точки слева" loading="lazy" class="first__abstraction-img participants__abstract-img_left ls-is-cached lazyloaded">
+            <div class="member__content" id="member__content">
+
+
+                        <div class="modal fade" id="story_57213" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+
+                                    <div class="modal-body modal-body__story">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <img src="img/close-modal__button.svg" alt="Закрытие модального окна" class="modal-close__img">
+                                        </button>
+                                        <div class="modal-body__content">
+                                            <img src="" alt="Шестаков Николай" loading="lazy" class="modal-body__photo lazyload">
+                                            <h5 class="modal-body__head"></h5>
+                                            <p class="member__item"></p><p></p><p></p>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="modal-footer__close-button" data-dismiss="modal">Закрыть</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                <ul class="member__register">
+
+                                                <li class="member__paragraph member__paragraph_odd">
+                            <div class="member__photo_case">
+                                <img src="img/photo_section.svg" alt="ИМЯ ФАМИЛИЯ" loading="lazy" class="participant__photo ls-is-cached lazyloaded">
+                                <div class="member__photo_polosa">
+                                  <img src="" alt="">
+                                </div>
+                                <div class="member__name_case">
+                                    <p class="member__name_article">ИМЯ ФАМИЛИЯ</p>
+                                </div>
+                            </div>
+                            <div class="member__story_wrapper">
+                                <p class="member__item">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultrices bibendum viverra aliquam duis vehicula vitae sit varius urna. Convallis euismod venenatis cursus arcu elementum blandit massa euismod blandit. Porttitor ultrices ultricies cras morbi sit. Et, sed nibh egestas aliquam faucibus egestas. Magnis quis egestas scelerisque vivamus ornare. Quis in phasellus pharetra, tortor metus. Diam tristique sociis nec imperdiet in viverra egestas et. Vitae, tempus est convallis pulvinar pharetra tristique aliquet. Imperdiet vulputate turpis velit tincidunt volutpat eu pulvinar sed nec. Quam ornare sit vel rhoncus quam. Hac sed vitae in morbi sem. Vel eu odio pharetra, lacus a, diam. Enim quis blandit senectus lobortis pharetra feugiat. Mi venenatis et sagittis semper. Nisl, orci purus viverra nisl eget. Volutpat sit neque condimentum odio sit vitae sed felis urna. Tortor orci amet, pellentesque odio. Ultricies iaculis aenean sem nec. Consectetur ac iaculis varius rhoncus arcu. Facilisis pharetra, tincidunt nibh quam consequat in interdum. Semper sodales augue nec morbi dignissim facilisis. Sed malesuada leo morbi quam dui nibh suspendisse non non. Eu eget adipiscing tincidunt erat etiam. Aliquam, sed mauris, etiam sollicitudin mauris, augue vitae nulla et. Hendrerit a, ac dignissim a euismod. Risus semper nunc condimentum nisl et cras neque proin nam. In nisi duis ornare diam ultrices mi massa vitae.                                     </p>
+                                <div class="story__more-info_case">
+                                    <div class="more-info__content">
+                                        <p class="writer__name_item">Имя Фамилия <span class="writer__who_span"> (правнучка)</span></p>
+                                        <p class="place__item">г. <span class="city__name_span">Москва</span></p>
+                                    </div>
+                                    <div class="more-info__share_case share-post">
+                                        <button aria-label="Поделиться историей во Вконтакте" class="share share__vk" data-id="1">
+                                            <img src="img/social__vk.png" alt="vk" class="social__img">
+                                        </button>
+
+                                        <button aria-label="Поделиться историей в Facebook" class="share share__fb" data-id="2">
+                                            <img src="img/social__fb.png" alt="fb" class="social__img">
+                                        </button>
+
+                                        <button aria-label="Поделиться историей в Одноклассниках" class="share share__ok" data-id="3">
+                                            <img src="img/social__ok.png" alt="ok" class="social__img">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+
+                                                <li class="member__paragraph member__paragraph_even">
+                            <div class="member__photo2_case">
+                                <img src="img/photo_section2.svg" alt="ИМЯ ФАМИЛИЯ" loading="lazy" class="participant__photo ls-is-cached lazyloaded">
+                                <div class="member__name_case2">
+                                    <p class="member__name_article">ИМЯ ФАМИЛИЯ</p>
+                                </div>
+                            </div>
+                            <div class="member__story_wrapper">
+                                <p class="member__item"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultrices bibendum viverra aliquam duis vehicula vitae sit varius urna. Convallis euismod venenatis cursus arcu elementum blandit massa euismod blandit. Porttitor ultrices ultricies cras morbi sit. Et, sed nibh egestas aliquam faucibus egestas. Magnis quis egestas scelerisque vivamus ornare. Quis in phasellus pharetra, tortor metus. Diam tristique sociis nec imperdiet in viverra egestas et. Vitae, tempus est convallis pulvinar pharetra tristique aliquet. Imperdiet vulputate turpis velit tincidunt volutpat eu pulvinar sed nec. Quam ornare sit vel rhoncus quam. Hac sed vitae in morbi sem. Vel eu odio pharetra, lacus a, diam. Enim quis blandit senectus lobortis pharetra feugiat. Mi venenatis et sagittis semper. Nisl, orci purus viverra nisl eget. Volutpat sit neque condimentum odio sit vitae sed felis urna. Tortor orci amet, pellentesque odio. Ultricies iaculis aenean sem nec. Consectetur ac iaculis varius rhoncus arcu. Facilisis pharetra, tincidunt nibh quam consequat in interdum. Semper sodales augue nec morbi dignissim facilisis. Sed malesuada leo morbi quam dui nibh suspendisse non non. Eu eget adipiscing tincidunt erat etiam. Aliquam, sed mauris, etiam sollicitudin mauris, augue vitae nulla et. Hendrerit a, ac dignissim a euismod. Risus semper nunc condimentum nisl et cras neque proin nam. In nisi duis ornare diam ultrices mi massa vitae.                                   </p>
+                                <div class="story__more-info_case">
+                                    <div class="more-info__content">
+                                        <p class="writer__name_item">Имя Фамилия <span class="writer__who_span">(правнучка)</span></p>
+                                        <p class="place__item">г. <span class="city__name_span">Москва</span></p>
+                                    </div>
+                                    <div class="more-info__share_case share-post">
+                                        <button aria-label="Поделиться историей во Вконтакте"  class="share share__vk" data-id="4">
+                                            <img src="img/social__vk.png" alt="vk" class="social__img">
+                                        </button>
+
+                                        <button aria-label="Поделиться историей в Facebook" class="share share__fb" data-id="5">
+                                            <img src="img/social__fb.png" alt="fb" class="social__img">
+                                        </button>
+
+                                        <button aria-label="Поделиться историей в Одноклассниках" class="share share__ok" data-id="6">
+                                            <img src="img/social__ok.png" alt="ok" class="social__img">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="member__paragraph member__paragraph_odd">
+    <div class="member__photo_case">
+        <img src="img/photo_section.svg" alt="ИМЯ ФАМИЛИЯ" loading="lazy" class="participant__photo ls-is-cached lazyloaded">
+        <div class="member__name_case">
+            <p class="member__name_article">ИМЯ ФАМИЛИЯ</p>
+        </div>
+    </div>
+    <div class="member__story_wrapper">
+        <p class="member__item"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultrices bibendum viverra aliquam duis vehicula vitae sit varius urna. Convallis euismod venenatis cursus arcu elementum blandit massa euismod blandit. Porttitor ultrices ultricies cras morbi sit. Et, sed nibh egestas aliquam faucibus egestas. Magnis quis egestas scelerisque vivamus ornare. Quis in phasellus pharetra, tortor metus. Diam tristique sociis nec imperdiet in viverra egestas et. Vitae, tempus est convallis pulvinar pharetra tristique aliquet. Imperdiet vulputate turpis velit tincidunt volutpat eu pulvinar sed nec. Quam ornare sit vel rhoncus quam. Hac sed vitae in morbi sem. Vel eu odio pharetra, lacus a, diam. Enim quis blandit senectus lobortis pharetra feugiat. Mi venenatis et sagittis semper. Nisl, orci purus viverra nisl eget. Volutpat sit neque condimentum odio sit vitae sed felis urna. Tortor orci amet, pellentesque odio. Ultricies iaculis aenean sem nec. Consectetur ac iaculis varius rhoncus arcu. Facilisis pharetra, tincidunt nibh quam consequat in interdum. Semper sodales augue nec morbi dignissim facilisis. Sed malesuada leo morbi quam dui nibh suspendisse non non. Eu eget adipiscing tincidunt erat etiam. Aliquam, sed mauris, etiam sollicitudin mauris, augue vitae nulla et. Hendrerit a, ac dignissim a euismod. Risus semper nunc condimentum nisl et cras neque proin nam. In nisi duis ornare diam ultrices mi massa vitae.                         </p>
+        <div class="story__more-info_case">
+            <div class="more-info__content">
+                <p class="writer__name_item">Имя Фамилия<span class="writer__who_span"> (правнучка)</span></p>
+                <p class="place__item">г. <span class="city__name_span">Москва</span></p>
+            </div>
+            <div class="more-info__share_case share-post">
+                <button aria-label="Поделиться историей во Вконтакте"  class="share share__vk" data-id="4" >
+                    <img src="img/social__vk.png" alt="vk" class="social__img">
+                </button>
+
+                <button aria-label="Поделиться историей в Facebook"  class="share share__fb" data-id="5">
+                    <img src="img/social__fb.png" alt="fb" class="social__img">
+                </button>
+
+                <button aria-label="Поделиться историей в Одноклассниках" class="share share__ok" data-id="6">
+                    <img src="img/social__ok.png" alt="ok" class="social__img">
+                </button>
+            </div>
+        </div>
+    </div>
+</li>
+                                                            </ul>
+                <div class="member__page-number_wrapper">
+
+  <a class="pagination__prev" data-scope="local" data-place="member__content" href="#">
+<img src="img/vector.svg" alt="">
+     </a>
+                                    <span class="page-number_span_wrapper">
+                    <span class="page-number_span_item">1</span>
+                </span>
+
+                                    <a class="page-number_a" data-scope="local" data-place="member__content" href="#">2</a>
+
+                                    <a class="page-number_a" data-scope="local" data-place="member__content" href="#">3</a>
+
+                    &nbsp;...&nbsp;<a class="page-number_a page-number_a-end" data-scope="local" data-place="" href="#">4</a>
+                    <a class="pagination__next" data-scope="local" data-place="member__content" href="#">
+<img src="img/vector1.svg" alt="">
+                        </a>
+
+
+                    </div>
+            </div>
+        </section>
+
+        <section class="memory__news_section">
+                <h2 class="memory__section-head">Новости</h2>
+                <div class="news_container"></div>
+                <div class="news__keep">
+                  <div class="news__list">
+                      <img src="img/screennews.svg" alt="" class= "photonews">
+                  </div>
+                </div>
+            </section>
+ </div>
+</div>
+<!-- ВАЖНОЕ МОДАЛЬНОЕ ОКНО -->
+<script src="qwerty.js"></script>
